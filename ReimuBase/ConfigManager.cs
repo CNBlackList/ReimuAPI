@@ -39,6 +39,7 @@ namespace ReimuAPI.ReimuBase
         public string bind { get; set; }
         public string api_key { get; set; }
         public string api_host { get; set; }
+        public long admin_group { get; set; } = 0;
         public int[] admin_list { get; set; }
         public PluginsListBundle plugins { get; set; }
     }

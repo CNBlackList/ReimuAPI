@@ -7,6 +7,13 @@ namespace ReimuAPI.ReimuBase
 {
     public class ExceptionListener
     {
+        private long AdminGroupID;
+
+        public ExceptionListener()
+        {
+            AdminGroupID = new ConfigManager().getConfig().admin_group;
+        }
+
         public void OnException(Exception exception, string JsonString = null)
         {
             StackTrace stackTrace = new StackTrace();
@@ -19,7 +26,10 @@ namespace ReimuAPI.ReimuBase
                 errmsg += "\n\nRAW Json: " + JsonString;
             }
             Console.WriteLine(errmsg);
-            TgApi.getDefaultApiConnection().sendMessage(-1001072337178, errmsg);
+            if (AdminGroupID != 0)
+            {
+                TgApi.getDefaultApiConnection().sendMessage(AdminGroupID, errmsg);
+            }
         }
 
         public void OnJsonDecodeError(Exception exception, string JsonString)
@@ -34,7 +44,10 @@ namespace ReimuAPI.ReimuBase
                 errmsg += "\n\nRAW Json: " + JsonString;
             }
             Console.WriteLine(errmsg);
-            TgApi.getDefaultApiConnection().sendMessage(-1001072337178, errmsg);
+            if (AdminGroupID != 0)
+            {
+                TgApi.getDefaultApiConnection().sendMessage(AdminGroupID, errmsg);
+            }
         }
     }
 }
